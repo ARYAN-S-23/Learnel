@@ -34,12 +34,12 @@ const PlanModal = ({ isOpen, onClose, onSave, selectedDate, subjects }) => {
         className="absolute inset-0 bg-black/30 backdrop-blur-sm"
         onClick={onClose}
       />
-      <div className="relative bg-white rounded-2xl border border-[#eef1f6] shadow-xl w-full max-w-md">
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#eef1f6]">
-          <h3 className="font-semibold text-[#1e293b]">Add Study Session</h3>
+      <div className="relative bg-white dark:bg-bg-card rounded-2xl border border-border shadow-xl w-full max-w-md">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+          <h3 className="font-semibold text-gray-900">Add Study Session</h3>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-[#f0f2f8] transition-colors"
+            className="p-1 rounded-lg text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-colors"
           >
             <X size={18} />
           </button>
@@ -47,13 +47,13 @@ const PlanModal = ({ isOpen, onClose, onSave, selectedDate, subjects }) => {
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-[#1e293b] mb-1.5">
+            <label className="block text-sm font-medium text-gray-900 mb-1.5">
               Subject
             </label>
             <select
               value={form.subjectId}
               onChange={(e) => setForm({ ...form, subjectId: e.target.value })}
-              className="w-full bg-[#f8f9fd] border border-[#eef1f6] rounded-xl px-3 py-2 text-sm text-[#1e293b] outline-none focus:ring-2 focus:ring-[#5b5fc7]/20 focus:border-[#5b5fc7] transition-all"
+              className="w-full bg-gray-50 border border-border rounded-xl px-3 py-2 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
               required
             >
               <option value="">Select a subject</option>
@@ -66,14 +66,14 @@ const PlanModal = ({ isOpen, onClose, onSave, selectedDate, subjects }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#1e293b] mb-1.5">
+            <label className="block text-sm font-medium text-gray-900 mb-1.5">
               Title
             </label>
             <input
               type="text"
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
-              className="w-full bg-[#f8f9fd] border border-[#eef1f6] rounded-xl px-3 py-2 text-sm text-[#1e293b] outline-none focus:ring-2 focus:ring-[#5b5fc7]/20 focus:border-[#5b5fc7] transition-all"
+              className="w-full bg-gray-50 border border-border rounded-xl px-3 py-2 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
               placeholder="e.g. Review chapter 5"
               required
             />
@@ -81,7 +81,7 @@ const PlanModal = ({ isOpen, onClose, onSave, selectedDate, subjects }) => {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-[#1e293b] mb-1.5">
+              <label className="block text-sm font-medium text-gray-900 mb-1.5">
                 Start Time
               </label>
               <input
@@ -90,18 +90,18 @@ const PlanModal = ({ isOpen, onClose, onSave, selectedDate, subjects }) => {
                 onChange={(e) =>
                   setForm({ ...form, startTime: e.target.value })
                 }
-                className="w-full bg-[#f8f9fd] border border-[#eef1f6] rounded-xl px-3 py-2 text-sm text-[#1e293b] outline-none focus:ring-2 focus:ring-[#5b5fc7]/20 focus:border-[#5b5fc7] transition-all"
+                className="w-full bg-gray-50 border border-border rounded-xl px-3 py-2 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-[#1e293b] mb-1.5">
+              <label className="block text-sm font-medium text-gray-900 mb-1.5">
                 End Time
               </label>
               <input
                 type="time"
                 value={form.endTime}
                 onChange={(e) => setForm({ ...form, endTime: e.target.value })}
-                className="w-full bg-[#f8f9fd] border border-[#eef1f6] rounded-xl px-3 py-2 text-sm text-[#1e293b] outline-none focus:ring-2 focus:ring-[#5b5fc7]/20 focus:border-[#5b5fc7] transition-all"
+                className="w-full bg-gray-50 border border-border rounded-xl px-3 py-2 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
               />
             </div>
           </div>
@@ -110,13 +110,13 @@ const PlanModal = ({ isOpen, onClose, onSave, selectedDate, subjects }) => {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 rounded-xl font-medium text-sm bg-white border border-[#eef1f6] hover:bg-[#f0f2f8] text-slate-700 transition-all"
+              className="flex-1 px-4 py-2 rounded-xl font-medium text-sm bg-white dark:bg-bg-card border border-border hover:bg-gray-50 text-gray-900 transition-all"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="flex-1 px-4 py-2 rounded-xl font-medium text-sm bg-[#5b5fc7] hover:bg-[#4a4eb5] text-white transition-all"
+              className="flex-1 px-4 py-2 rounded-xl font-medium text-sm bg-indigo-500 hover:bg-indigo-600 text-white transition-all"
             >
               Save Session
             </button>
@@ -136,26 +136,26 @@ const UpcomingPlan = ({ plan, onDelete, subjects }) => {
   });
 
   return (
-    <div className="flex items-start gap-3 p-3 rounded-xl hover:bg-[#f0f2f8] transition-colors group">
+    <div className="flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50 transition-colors group">
       <div
         className="w-2 h-2 rounded-full mt-2 shrink-0"
         style={{ backgroundColor: subject?.color || "#5b5fc7" }}
       />
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-[#1e293b] truncate">
+        <p className="text-sm font-medium text-gray-900 truncate">
           {plan.title}
         </p>
         <div className="flex items-center gap-2 mt-1">
-          <span className="text-xs text-[#64748b]">{dateStr}</span>
-          <span className="text-xs text-[#94a3b8]">•</span>
-          <span className="text-xs text-[#64748b]">
+          <span className="text-xs text-gray-400">{dateStr}</span>
+          <span className="text-xs text-gray-300">•</span>
+          <span className="text-xs text-gray-400">
             {plan.startTime} - {plan.endTime}
           </span>
         </div>
       </div>
       <button
         onClick={() => onDelete(plan.id)}
-        className="p-1 rounded text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all"
+        className="p-1 rounded text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all"
       >
         <Trash2 size={14} />
       </button>
@@ -203,10 +203,12 @@ export default function Planner() {
   return (
     <div className="space-y-6">
       <div>
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 sm:mb-8 gap-3">
           <div>
-            <h1 className="text-2xl font-bold text-[#1e293b]">Study Planner</h1>
-            <p className="text-[#64748b] text-sm mt-1">
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+              Study Planner
+            </h1>
+            <p className="text-gray-400 text-sm mt-1">
               Schedule your study sessions
             </p>
           </div>
@@ -215,7 +217,7 @@ export default function Planner() {
               setSelectedDate(new Date().toISOString().split("T")[0]);
               setIsModalOpen(true);
             }}
-            className="inline-flex items-center justify-center gap-2.5 bg-[#5b5fc7] hover:bg-[#4a4eb5] text-white px-8 py-3 rounded-2xl font-medium text-sm transition-all shadow-lg whitespace-nowrap hover:shadow-xl active:scale-[0.98] min-w-[190px]"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white px-5 sm:px-8 py-2.5 sm:py-3 rounded-2xl font-medium text-sm transition-all shadow-lg whitespace-nowrap hover:shadow-xl active:scale-[0.98]"
           >
             <Plus size={16} />
             Add Session
@@ -224,7 +226,7 @@ export default function Planner() {
 
         <div className="grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-2xl border border-[#eef1f6] p-6">
+            <div className="bg-white dark:bg-bg-card rounded-2xl border border-border p-4 sm:p-6">
               <FullCalendar
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                 initialView="dayGridMonth"
@@ -244,31 +246,31 @@ export default function Planner() {
                   week: "Week",
                   day: "Day",
                 }}
-                buttonClassNames={{
+                buttonClass={{
                   today:
-                    "!bg-[#e8e9f8] !text-[#5b5fc7] !border-[#d1d5f0] hover:!bg-[#dddef5]",
-                  prev: "!text-slate-500 hover:!bg-[#f0f2f8]",
-                  next: "!text-slate-500 hover:!bg-[#f0f2f8]",
-                  dayGridMonth: "!text-slate-500 hover:!bg-[#f0f2f8]",
-                  timeGridWeek: "!text-slate-500 hover:!bg-[#f0f2f8]",
-                  timeGridDay: "!text-slate-500 hover:!bg-[#f0f2f8]",
+                    "!bg-indigo-50 !text-indigo-500 !border-[#d1d5f0] hover:!bg-[#dddef5]",
+                  prev: "!text-gray-500 hover:!bg-gray-50",
+                  next: "!text-gray-500 hover:!bg-gray-50",
+                  dayGridMonth: "!text-gray-500 hover:!bg-gray-50",
+                  timeGridWeek: "!text-gray-500 hover:!bg-gray-50",
+                  timeGridDay: "!text-gray-500 hover:!bg-gray-50",
                 }}
-                headerToolbarClassNames="!border-b !border-[#eef1f6] !pb-4 !mb-4"
-                titleClassNames="!text-lg !font-semibold !text-[#1e293b]"
-                dayHeaderClassNames="!text-xs !font-medium !text-[#94a3b8] !uppercase"
-                dayCellClassNames="!border-[#eef1f6] hover:!bg-[#f0f2f8]"
-                eventClassNames="!rounded-xl !text-xs !font-medium !px-2 !py-1"
+                headerToolbarClass="!border-b !border-border !pb-4 !mb-4"
+                titleClass="!text-lg !font-semibold !text-gray-900"
+                dayHeaderClass="!text-xs !font-medium !text-gray-300 !uppercase"
+                dayCellClass="!border-border hover:!bg-gray-50"
+                eventClass="!rounded-xl !text-xs !font-medium !px-2 !py-1"
               />
             </div>
           </div>
 
           <div className="space-y-6">
-            <div className="bg-white rounded-2xl border border-[#eef1f6] p-6">
+            <div className="bg-white dark:bg-bg-card rounded-2xl border border-border p-4 sm:p-6">
               <div className="flex items-center gap-2 mb-4">
-                <span className="w-8 h-8 rounded-xl bg-[#e8e9f8] flex items-center justify-center">
-                  <Calendar size={16} className="text-[#5b5fc7]" />
+                <span className="w-8 h-8 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 flex items-center justify-center">
+                  <Calendar size={16} className="text-indigo-500" />
                 </span>
-                <h2 className="font-semibold text-[#1e293b]">
+                <h2 className="font-semibold text-gray-900">
                   Upcoming Sessions
                 </h2>
               </div>
@@ -285,32 +287,32 @@ export default function Planner() {
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center py-8 text-center">
-                  <BookOpen size={32} className="text-[#c5c7e8] mb-2" />
-                  <p className="text-[#64748b] text-sm">No upcoming sessions</p>
-                  <p className="text-[#94a3b8] text-xs mt-1">
+                  <BookOpen size={32} className="text-indigo-300 mb-2" />
+                  <p className="text-gray-400 text-sm">No upcoming sessions</p>
+                  <p className="text-gray-300 text-xs mt-1">
                     Click a day to add one
                   </p>
                 </div>
               )}
             </div>
 
-            <div className="bg-white rounded-2xl border border-[#eef1f6] p-6">
+            <div className="bg-white dark:bg-bg-card rounded-2xl border border-border p-4 sm:p-6">
               <div className="flex items-center gap-2 mb-4">
-                <span className="w-8 h-8 rounded-xl bg-amber-50 flex items-center justify-center">
+                <span className="w-8 h-8 rounded-xl bg-amber-50 dark:bg-amber-950/50 flex items-center justify-center">
                   <Clock size={16} className="text-amber-500" />
                 </span>
-                <h2 className="font-semibold text-[#1e293b]">Quick Stats</h2>
+                <h2 className="font-semibold text-gray-900">Quick Stats</h2>
               </div>
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-[#64748b]">Total Sessions</span>
-                  <span className="text-sm font-medium text-[#1e293b]">
+                  <span className="text-sm text-gray-400">Total Sessions</span>
+                  <span className="text-sm font-medium text-gray-900">
                     {studyPlans.length}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-[#64748b]">This Week</span>
-                  <span className="text-sm font-medium text-[#1e293b]">
+                  <span className="text-sm text-gray-400">This Week</span>
+                  <span className="text-sm font-medium text-gray-900">
                     {
                       studyPlans.filter((p) => {
                         const d = new Date(p.date);
@@ -324,8 +326,8 @@ export default function Planner() {
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-[#64748b]">Subjects</span>
-                  <span className="text-sm font-medium text-[#1e293b]">
+                  <span className="text-sm text-gray-400">Subjects</span>
+                  <span className="text-sm font-medium text-gray-900">
                     {new Set(studyPlans.map((p) => p.subjectId)).size}
                   </span>
                 </div>

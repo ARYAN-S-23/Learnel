@@ -23,43 +23,35 @@ import {
 import useStore from "../../store/useStore";
 
 const StatCard = ({ icon: Icon, label, value, trend, trendUp, color }) => (
-  <div className="bg-white rounded-2xl border border-[#eef1f6] p-5">
+  <div className="bg-white dark:bg-bg-card rounded-2xl border border-border p-5">
     <div className="flex items-center justify-between mb-3">
       <div className={`p-2.5 rounded-xl ${color}`}>
         <Icon size={18} className="text-white" />
       </div>
       {trend !== undefined && (
         <div
-          className={`flex items-center gap-0.5 text-xs font-medium ${
-            trendUp ? "text-emerald-500" : "text-red-500"
-          }`}
+          className={`flex items-center gap-0.5 text-xs font-medium ${trendUp ? "text-emerald-500" : "text-red-500"}`}
         >
           {trendUp ? <ArrowUp size={12} /> : <ArrowDown size={12} />}
           {trend}%
         </div>
       )}
     </div>
-    <p className="text-2xl font-bold text-[#1e293b]">{value}</p>
-    <p className="text-sm text-[#64748b] mt-1">{label}</p>
+    <p className="text-2xl font-bold text-gray-900">{value}</p>
+    <p className="text-sm text-gray-400 mt-1">{label}</p>
   </div>
 );
 
 const SubjectBar = ({ name, progress, isWeak }) => (
   <div className="flex items-center gap-3 py-2">
-    <div className="w-24 truncate text-sm text-[#64748b]">{name}</div>
-    <div className="flex-1 h-2.5 bg-[#f0f2f8] rounded-full overflow-hidden">
+    <div className="w-24 truncate text-sm text-gray-400">{name}</div>
+    <div className="flex-1 h-2.5 bg-gray-50 rounded-full overflow-hidden">
       <div
-        className={`h-full rounded-full transition-all ${
-          isWeak
-            ? progress < 30
-              ? "bg-red-400"
-              : "bg-amber-400"
-            : "bg-emerald-400"
-        }`}
+        className={`h-full rounded-full transition-all ${isWeak ? (progress < 30 ? "bg-red-400" : "bg-amber-400") : "bg-emerald-400"}`}
         style={{ width: `${progress}%` }}
       />
     </div>
-    <span className="text-xs font-medium text-slate-500 w-10 text-right">
+    <span className="text-xs font-medium text-gray-500 w-10 text-right">
       {progress}%
     </span>
   </div>
@@ -68,8 +60,8 @@ const SubjectBar = ({ name, progress, isWeak }) => (
 const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-white border border-[#eef1f6] rounded-xl shadow-sm px-3 py-2">
-      <p className="text-sm font-medium text-[#1e293b]">{label}</p>
+    <div className="bg-white dark:bg-bg-card border border-border rounded-xl shadow-sm px-3 py-2">
+      <p className="text-sm font-medium text-gray-900">{label}</p>
       <p className="text-sm text-indigo-500">{payload[0].value} hours</p>
     </div>
   );
@@ -77,8 +69,8 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 const EmptyState = ({ message }) => (
   <div className="flex flex-col items-center justify-center py-12 text-center">
-    <BarChart3 size={40} className="text-slate-300 mb-3" />
-    <p className="text-slate-400 text-sm">{message}</p>
+    <BarChart3 size={40} className="text-gray-300 mb-3" />
+    <p className="text-gray-400 text-sm">{message}</p>
   </div>
 );
 
@@ -180,8 +172,10 @@ export default function Analytics() {
     <div className="space-y-6">
       <div>
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-[#1e293b]">Analytics</h1>
-          <p className="text-[#64748b] text-sm mt-1">
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+            Analytics
+          </h1>
+          <p className="text-gray-400 text-sm mt-1">
             Track your learning progress
           </p>
         </div>
@@ -219,10 +213,10 @@ export default function Analytics() {
 
         <div className="grid lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-6">
-            <div className="bg-white rounded-2xl border border-[#eef1f6] p-6">
+            <div className="bg-white dark:bg-bg-card rounded-2xl border border-border p-4 sm:p-6">
               <div className="flex items-center gap-2 mb-6">
                 <BarChart3 size={18} className="text-indigo-500" />
-                <h2 className="font-semibold text-[#1e293b]">
+                <h2 className="font-semibold text-gray-900">
                   Study Hours This Week
                 </h2>
               </div>
@@ -254,10 +248,10 @@ export default function Analytics() {
               )}
             </div>
 
-            <div className="bg-white rounded-2xl border border-[#eef1f6] p-6">
+            <div className="bg-white dark:bg-bg-card rounded-2xl border border-border p-4 sm:p-6">
               <div className="flex items-center gap-2 mb-6">
                 <TrendingUp size={18} className="text-indigo-500" />
-                <h2 className="font-semibold text-[#1e293b]">Monthly Trend</h2>
+                <h2 className="font-semibold text-gray-900">Monthly Trend</h2>
               </div>
               {studySessions.length > 0 ? (
                 <ResponsiveContainer width="100%" height={260}>
@@ -309,12 +303,10 @@ export default function Analytics() {
           </div>
 
           <div className="space-y-6">
-            <div className="bg-white rounded-2xl border border-[#eef1f6] p-6">
+            <div className="bg-white dark:bg-bg-card rounded-2xl border border-border p-6">
               <div className="flex items-center gap-2 mb-4">
                 <BookOpen size={18} className="text-emerald-500" />
-                <h2 className="font-semibold text-[#1e293b]">
-                  Strong Subjects
-                </h2>
+                <h2 className="font-semibold text-gray-900">Strong Subjects</h2>
               </div>
               {strongSubjects.length > 0 ? (
                 <div className="space-y-1">
@@ -332,10 +324,10 @@ export default function Analytics() {
               )}
             </div>
 
-            <div className="bg-white rounded-2xl border border-[#eef1f6] p-6">
+            <div className="bg-white dark:bg-bg-card rounded-2xl border border-border p-6">
               <div className="flex items-center gap-2 mb-4">
                 <Target size={18} className="text-amber-500" />
-                <h2 className="font-semibold text-[#1e293b]">
+                <h2 className="font-semibold text-gray-900">
                   Needs Improvement
                 </h2>
               </div>

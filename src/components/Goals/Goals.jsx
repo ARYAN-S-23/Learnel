@@ -70,7 +70,7 @@ const Goals = () => {
         text: "text-amber-600",
         label: "Due Soon",
       },
-      active: { bg: "bg-[#e8e9f8]", text: "text-[#5b5fc7]", label: "Active" },
+      active: { bg: "bg-indigo-50", text: "text-indigo-500", label: "Active" },
     };
     const s = map[status];
     return (
@@ -124,35 +124,37 @@ const Goals = () => {
   return (
     <div className="space-y-6">
       <div>
-        <div className="flex items-start justify-between mb-8 gap-4">
+        <div className="flex flex-col sm:flex-row items-start justify-between mb-6 sm:mb-8 gap-4">
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#e8e9f8] flex items-center justify-center">
-              <Target size={22} className="text-[#5b5fc7]" />
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 flex items-center justify-center">
+              <Target size={22} className="text-indigo-500" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-[#1e293b]">Study Goals</h1>
-              <p className="text-[#64748b] text-sm mt-1">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+                Study Goals
+              </h1>
+              <p className="text-gray-400 text-sm mt-1">
                 Track your learning goals and milestones
               </p>
             </div>
           </div>
           <button
             onClick={() => setShowForm(!showForm)}
-            className="inline-flex items-center justify-center gap-2.5 bg-[#5b5fc7] hover:bg-[#4a4eb5] text-white px-8 py-3 rounded-2xl font-medium text-sm transition-all hover:shadow-lg active:scale-[0.98] min-w-[190px]"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-indigo-500 hover:bg-indigo-600 text-white px-5 sm:px-8 py-2.5 sm:py-3 rounded-2xl font-medium text-sm transition-all hover:shadow-lg active:scale-[0.98]"
           >
             <Plus size={16} /> New Goal
           </button>
         </div>
 
         {showForm && (
-          <div className="bg-white rounded-2xl p-6 border border-[#eef1f6] mb-6">
-            <h3 className="text-lg font-semibold text-[#1e293b] mb-4">
+          <div className="bg-white dark:bg-bg-card rounded-2xl p-4 sm:p-6 border border-border mb-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
               New Goal
             </h3>
             <div className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm text-[#64748b] mb-1">
+                  <label className="block text-sm text-gray-400 mb-1">
                     Title
                   </label>
                   <input
@@ -161,12 +163,12 @@ const Goals = () => {
                     onChange={(e) =>
                       setNewGoal((p) => ({ ...p, title: e.target.value }))
                     }
-                    className="w-full bg-[#f8f9fd] border border-[#eef1f6] rounded-xl px-3 py-2.5 text-sm text-[#1e293b] focus:ring-2 focus:ring-[#5b5fc7]/20 focus:border-[#5b5fc7] outline-none transition-all"
+                    className="w-full bg-gray-50 border border-border rounded-xl px-3 py-2.5 text-sm text-gray-900 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all"
                     placeholder="Enter goal title"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-[#64748b] mb-1">
+                  <label className="block text-sm text-gray-400 mb-1">
                     Deadline
                   </label>
                   <input
@@ -175,13 +177,13 @@ const Goals = () => {
                     onChange={(e) =>
                       setNewGoal((p) => ({ ...p, deadline: e.target.value }))
                     }
-                    className="w-full bg-[#f8f9fd] border border-[#eef1f6] rounded-xl px-3 py-2.5 text-sm text-[#1e293b] focus:ring-2 focus:ring-[#5b5fc7]/20 focus:border-[#5b5fc7] outline-none transition-all"
+                    className="w-full bg-gray-50 border border-border rounded-xl px-3 py-2.5 text-sm text-gray-900 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm text-[#64748b] mb-2">
+                <label className="block text-sm text-gray-400 mb-2">
                   Subjects
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -189,11 +191,7 @@ const Goals = () => {
                     <button
                       key={s.id}
                       onClick={() => toggleSubject(s.id)}
-                      className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
-                        newGoal.subjectIds.includes(s.id)
-                          ? "bg-[#5b5fc7] text-white"
-                          : "bg-[#f0f2f8] text-[#64748b] hover:bg-[#e8e9f8]"
-                      }`}
+                      className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${newGoal.subjectIds.includes(s.id) ? "bg-indigo-500 text-white" : "bg-gray-50 text-gray-400 hover:bg-indigo-50"}`}
                     >
                       {s.name}
                     </button>
@@ -202,7 +200,7 @@ const Goals = () => {
               </div>
 
               <div>
-                <label className="block text-sm text-[#64748b] mb-2">
+                <label className="block text-sm text-gray-400 mb-2">
                   Sub-goals
                 </label>
                 <div className="flex gap-2 mb-2">
@@ -211,12 +209,12 @@ const Goals = () => {
                     value={subGoalInput}
                     onChange={(e) => setSubGoalInput(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && addSubGoal()}
-                    className="flex-1 bg-[#f8f9fd] border border-[#eef1f6] rounded-xl px-3 py-2.5 text-sm text-[#1e293b] focus:ring-2 focus:ring-[#5b5fc7]/20 focus:border-[#5b5fc7] outline-none transition-all"
+                    className="flex-1 bg-gray-50 border border-border rounded-xl px-3 py-2.5 text-sm text-gray-900 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all"
                     placeholder="Add sub-goal"
                   />
                   <button
                     onClick={addSubGoal}
-                    className="px-4 py-2 rounded-xl bg-white border border-[#eef1f6] text-[#1e293b] hover:bg-[#f0f2f8] transition-all text-sm font-medium"
+                    className="px-4 py-2 rounded-xl bg-white dark:bg-bg-card border border-border text-gray-900 hover:bg-gray-50 transition-all text-sm font-medium"
                   >
                     Add
                   </button>
@@ -226,15 +224,15 @@ const Goals = () => {
                     {newGoal.subGoals.map((sg) => (
                       <div
                         key={sg.id}
-                        className="flex items-center gap-2 p-2 rounded-xl bg-[#f8f9fd] border border-[#eef1f6]"
+                        className="flex items-center gap-2 p-2 rounded-xl bg-gray-50 border border-border"
                       >
-                        <Circle size={14} className="text-[#94a3b8]" />
-                        <span className="text-[#1e293b] text-sm flex-1">
+                        <Circle size={14} className="text-gray-300" />
+                        <span className="text-gray-900 text-sm flex-1">
                           {sg.title}
                         </span>
                         <button
                           onClick={() => removeSubGoal(sg.id)}
-                          className="text-[#94a3b8] hover:text-red-500 transition-colors"
+                          className="text-gray-300 hover:text-red-500 transition-colors"
                         >
                           <Trash2 size={12} />
                         </button>
@@ -244,17 +242,17 @@ const Goals = () => {
                 )}
               </div>
 
-              <div className="flex gap-3">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                 <button
                   onClick={handleSave}
                   disabled={!newGoal.title || !newGoal.deadline}
-                  className="px-6 py-2 rounded-xl bg-[#5b5fc7] text-white hover:bg-[#4a4eb5] transition-all text-sm font-medium disabled:opacity-40"
+                  className="px-6 py-2 rounded-xl bg-indigo-500 text-white hover:bg-indigo-600 transition-all text-sm font-medium disabled:opacity-40"
                 >
                   Save Goal
                 </button>
                 <button
                   onClick={() => setShowForm(false)}
-                  className="px-6 py-2 rounded-xl bg-white border border-[#eef1f6] text-[#1e293b] hover:bg-[#f0f2f8] transition-all text-sm font-medium"
+                  className="px-6 py-2 rounded-xl bg-white dark:bg-bg-card border border-border text-gray-900 hover:bg-gray-50 transition-all text-sm font-medium"
                 >
                   Cancel
                 </button>
@@ -264,9 +262,9 @@ const Goals = () => {
         )}
 
         {goals.length === 0 ? (
-          <div className="bg-white rounded-2xl p-12 border border-[#eef1f6] text-center">
-            <Target size={48} className="text-[#c5c7e8] mx-auto mb-4" />
-            <p className="text-[#64748b]">
+          <div className="bg-white dark:bg-bg-card rounded-2xl p-12 border border-border text-center">
+            <Target size={48} className="text-indigo-300 mx-auto mb-4" />
+            <p className="text-gray-400">
               No goals set yet. Create your first goal!
             </p>
           </div>
@@ -287,7 +285,7 @@ const Goals = () => {
               return (
                 <div
                   key={goal.id}
-                  className="bg-white rounded-2xl p-5 border border-[#eef1f6]"
+                  className="bg-white dark:bg-bg-card rounded-2xl p-4 sm:p-5 border border-border"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1">
@@ -304,29 +302,29 @@ const Goals = () => {
                           ) : (
                             <Circle
                               size={22}
-                              className="text-[#94a3b8] hover:text-[#5b5fc7] transition-colors"
+                              className="text-gray-300 hover:text-indigo-500 transition-colors"
                             />
                           )}
                         </button>
                         <h3
-                          className={`text-lg font-semibold ${goal.completed ? "text-[#94a3b8] line-through" : "text-[#1e293b]"}`}
+                          className={`text-lg font-semibold ${goal.completed ? "text-gray-300 line-through" : "text-gray-900"}`}
                         >
                           {goal.title}
                         </h3>
                         {statusBadge(status)}
                       </div>
-                      <div className="flex items-center gap-4 ml-8 mt-1">
-                        <span className="flex items-center gap-1 text-[#64748b] text-sm">
+                      <div className="flex items-center gap-4 ml-0 mt-1 sm:ml-8">
+                        <span className="flex items-center gap-1 text-gray-400 text-sm">
                           <Calendar size={14} /> {goal.deadline}
-                          <span className="text-[#94a3b8] mx-1">|</span>
+                          <span className="text-gray-300 mx-1">|</span>
                           <Clock size={14} /> {getDaysLeft(goal.deadline)}
                         </span>
                       </div>
-                      <div className="flex gap-1 flex-wrap ml-8 mt-2">
+                      <div className="flex gap-1 flex-wrap ml-0 mt-2 sm:ml-8">
                         {goal.subjectIds.map((sid) => (
                           <span
                             key={sid}
-                            className="text-xs px-2 py-0.5 rounded-full bg-[#f0f2f8] text-[#64748b] font-medium"
+                            className="text-xs px-2 py-0.5 rounded-full bg-gray-50 text-gray-400 font-medium"
                           >
                             {getSubjectName(sid)}
                           </span>
@@ -338,7 +336,7 @@ const Goals = () => {
                         onClick={() =>
                           setExpandedGoal(isExpanded ? null : goal.id)
                         }
-                        className="text-[#94a3b8] hover:text-[#1e293b] transition-colors"
+                        className="text-gray-300 hover:text-gray-900 transition-colors"
                       >
                         {isExpanded ? (
                           <ChevronUp size={18} />
@@ -348,7 +346,7 @@ const Goals = () => {
                       </button>
                       <button
                         onClick={() => deleteGoal(goal.id)}
-                        className="text-[#94a3b8] hover:text-red-500 transition-colors"
+                        className="text-gray-300 hover:text-red-500 transition-colors"
                       >
                         <Trash2 size={16} />
                       </button>
@@ -358,16 +356,14 @@ const Goals = () => {
                   {totalCount > 0 && (
                     <div className="ml-8 mb-3">
                       <div className="flex justify-between text-sm mb-1">
-                        <span className="text-[#64748b]">
+                        <span className="text-gray-400">
                           {completedCount}/{totalCount} sub-goals
                         </span>
-                        <span className="text-[#64748b]">{progress}%</span>
+                        <span className="text-gray-400">{progress}%</span>
                       </div>
-                      <div className="w-full bg-[#eef1f6] rounded-full h-1.5">
+                      <div className="w-full bg-border rounded-full h-1.5">
                         <div
-                          className={`h-1.5 rounded-full transition-all ${
-                            goal.completed ? "bg-emerald-500" : "bg-[#5b5fc7]"
-                          }`}
+                          className={`h-1.5 rounded-full transition-all ${goal.completed ? "bg-emerald-500" : "bg-indigo-500"}`}
                           style={{ width: `${progress}%` }}
                         />
                       </div>
@@ -380,16 +376,16 @@ const Goals = () => {
                         <button
                           key={sg.id}
                           onClick={() => toggleSubGoal(goal.id, sg.id)}
-                          className="w-full flex items-center gap-2 p-2 rounded-xl bg-[#f8f9fd] border border-[#eef1f6] hover:bg-[#f0f2f8] transition-colors text-left"
+                          className="w-full flex items-center gap-2 p-2 rounded-xl bg-gray-50 border border-border hover:bg-gray-50 transition-colors text-left"
                         >
                           <input
                             type="checkbox"
                             checked={sg.completed}
                             readOnly
-                            className="w-4 h-4 rounded border-[#d1d5db] text-[#5b5fc7] focus:ring-[#5b5fc7]/20 accent-[#5b5fc7]"
+                            className="w-4 h-4 rounded border-border dark:border-white/30 text-indigo-500 focus:ring-indigo-500/20 accent-indigo-500"
                           />
                           <span
-                            className={`text-sm ${sg.completed ? "text-[#94a3b8] line-through" : "text-[#1e293b]"}`}
+                            className={`text-sm ${sg.completed ? "text-gray-300 line-through" : "text-gray-900"}`}
                           >
                             {sg.title}
                           </span>

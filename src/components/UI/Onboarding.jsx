@@ -14,9 +14,9 @@ import useStore from "../../store/useStore";
 const steps = [
   {
     icon: Sparkles,
-    title: "Welcome to Learning OS",
+    title: "Welcome to Learnel",
     description:
-      "Your personal learning operating system. Let's set up your first subject to get started.",
+      "Your personal learning assistant. Let's set up your first subject to get started.",
     color: "bg-indigo-50 text-indigo-500",
   },
   {
@@ -53,11 +53,11 @@ export default function Onboarding({ onComplete }) {
   const [step, setStep] = useState(0);
   const [showSubjectForm, setShowSubjectForm] = useState(false);
   const [subjectName, setSubjectName] = useState("");
-  const [subjectColor, setSubjectColor] = useState("#5b5fc7");
+  const [subjectColor, setSubjectColor] = useState("#6366f1");
   const addSubject = useStore((s) => s.addSubject);
 
   const colors = [
-    "#5b5fc7",
+    "#6366f1",
     "#3b82f6",
     "#22c55e",
     "#f59e0b",
@@ -78,7 +78,7 @@ export default function Onboarding({ onComplete }) {
   const isLast = step === steps.length - 1;
 
   return (
-    <div className="fixed inset-0 z-[90] bg-[#f0f2f8] flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-[90] bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-lg">
         <AnimatePresence mode="wait">
           <motion.div
@@ -87,7 +87,7 @@ export default function Onboarding({ onComplete }) {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.25 }}
-            className="bg-white rounded-2xl border border-[#eef1f6] shadow-xl p-8"
+            className="bg-white dark:bg-bg-card rounded-2xl border border-border shadow-xl p-4 sm:p-6 lg:p-8"
           >
             {!showSubjectForm ? (
               <>
@@ -99,17 +99,17 @@ export default function Onboarding({ onComplete }) {
                     return <Icon size={26} />;
                   })()}
                 </div>
-                <h2 className="text-xl font-bold text-[#2d3436] mb-2">
+                <h2 className="text-xl font-bold text-gray-900 mb-2">
                   {steps[step].title}
                 </h2>
-                <p className="text-[#636e72] text-sm leading-relaxed mb-8">
+                <p className="text-gray-400 text-sm leading-relaxed mb-8">
                   {steps[step].description}
                 </p>
 
                 {step === 1 && !showSubjectForm && (
                   <button
                     onClick={() => setShowSubjectForm(true)}
-                    className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-3 rounded-2xl font-medium text-sm bg-[#5b5fc7] hover:bg-[#4a4eb5] text-white transition-all mb-4 shadow-lg hover:shadow-xl active:scale-[0.98] whitespace-nowrap"
+                    className="w-full inline-flex items-center justify-center gap-2.5 px-7 py-3 rounded-2xl font-medium text-sm bg-indigo-500 hover:bg-indigo-600 text-white transition-all mb-4 shadow-lg hover:shadow-xl active:scale-[0.98] whitespace-nowrap"
                   >
                     + Add First Subject
                   </button>
@@ -130,7 +130,7 @@ export default function Onboarding({ onComplete }) {
               </>
             ) : (
               <div>
-                <h3 className="text-lg font-semibold text-[#2d3436] mb-4">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">
                   New Subject
                 </h3>
                 <input
@@ -138,30 +138,30 @@ export default function Onboarding({ onComplete }) {
                   value={subjectName}
                   onChange={(e) => setSubjectName(e.target.value)}
                   placeholder="e.g. Mathematics, Physics..."
-                  className="w-full px-4 py-3 rounded-xl border border-[#eef1f6] bg-[#f8f9fd] text-sm text-[#2d3436] outline-none focus:ring-2 focus:ring-[#5b5fc7]/20 focus:border-[#5b5fc7] mb-4"
+                  className="w-full px-4 py-3 rounded-xl border border-border bg-gray-50 text-sm text-gray-900 outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 mb-4"
                   autoFocus
                   onKeyDown={(e) => e.key === "Enter" && handleAddSubject()}
                 />
-                <div className="flex gap-2 mb-6">
+                <div className="flex gap-2 mb-6 flex-wrap">
                   {colors.map((c) => (
                     <button
                       key={c}
                       onClick={() => setSubjectColor(c)}
-                      className={`w-8 h-8 rounded-full transition-all ${subjectColor === c ? "ring-2 ring-offset-2 ring-[#5b5fc7]" : "hover:scale-110"}`}
+                      className={`w-8 h-8 rounded-full transition-all ${subjectColor === c ? "ring-2 ring-offset-2 ring-indigo-500" : "hover:scale-110"}`}
                       style={{ backgroundColor: c }}
                     />
                   ))}
                 </div>
-                <div className="flex gap-3">
+                <div className="flex gap-2 sm:gap-3">
                   <button
                     onClick={() => setShowSubjectForm(false)}
-                    className="flex-1 px-4 py-2.5 rounded-xl font-medium text-sm bg-white border border-[#eef1f6] hover:bg-[#f8f9fd] text-[#636e72] transition-all"
+                    className="flex-1 px-4 py-2.5 rounded-xl font-medium text-sm bg-white dark:bg-bg-card border border-border hover:bg-gray-50 text-gray-400 transition-all"
                   >
                     Skip
                   </button>
                   <button
                     onClick={handleAddSubject}
-                    className="flex-1 px-4 py-2.5 rounded-xl font-medium text-sm bg-[#5b5fc7] hover:bg-[#4a4eb5] text-white transition-all"
+                    className="flex-1 px-4 py-2.5 rounded-xl font-medium text-sm bg-indigo-500 hover:bg-indigo-600 text-white transition-all"
                   >
                     Add Subject
                   </button>
@@ -176,13 +176,7 @@ export default function Onboarding({ onComplete }) {
           {steps.map((_, i) => (
             <div
               key={i}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === step
-                  ? "w-6 bg-[#5b5fc7]"
-                  : i < step
-                    ? "w-1.5 bg-[#5b5fc7]/40"
-                    : "w-1.5 bg-[#d1d5db]"
-              }`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${i === step ? "w-6 bg-indigo-500" : i < step ? "w-1.5 bg-indigo-500/40" : "w-1.5 bg-[#d1d5db]"}`}
             />
           ))}
         </div>
@@ -192,7 +186,7 @@ export default function Onboarding({ onComplete }) {
           <button
             onClick={() => step > 0 && setStep(step - 1)}
             disabled={step === 0}
-            className="px-4 py-2 rounded-xl text-sm font-medium text-[#636e72] hover:bg-white disabled:opacity-30 transition-all"
+            className="px-4 py-2 rounded-xl text-sm font-medium text-gray-400 hover:bg-white disabled:opacity-30 transition-all"
           >
             Back
           </button>
@@ -204,7 +198,7 @@ export default function Onboarding({ onComplete }) {
                 setStep(step + 1);
               }
             }}
-            className="flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-medium bg-[#5b5fc7] hover:bg-[#4a4eb5] text-white transition-all"
+            className="flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-medium bg-indigo-500 hover:bg-indigo-600 text-white transition-all"
           >
             {isLast ? "Get Started" : "Next"}
             {!isLast && <ChevronRight size={16} />}

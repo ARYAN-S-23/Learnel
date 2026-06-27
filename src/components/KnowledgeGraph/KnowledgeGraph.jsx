@@ -93,7 +93,7 @@ export default function KnowledgeGraph() {
               <Network size={20} className="text-[#5b5fc7]" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-slate-800">
+              <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
                 Knowledge Graph
               </h1>
               <p className="text-slate-400 text-sm mt-1">
@@ -104,7 +104,7 @@ export default function KnowledgeGraph() {
         </div>
 
         {isEmpty ? (
-          <div className="bg-white rounded-2xl p-12 border border-[#eef1f6] text-center">
+          <div className="bg-white dark:bg-bg-card rounded-2xl p-12 border border-border text-center">
             <div className="w-20 h-20 rounded-full bg-indigo-100 flex items-center justify-center mx-auto mb-4">
               <svg
                 width="32"
@@ -130,7 +130,7 @@ export default function KnowledgeGraph() {
             </p>
           </div>
         ) : (
-          <div className="bg-white rounded-2xl border border-[#eef1f6] overflow-hidden">
+          <div className="bg-white dark:bg-bg-card rounded-2xl border border-border overflow-hidden">
             <div style={{ height: "calc(100vh - 280px)", minHeight: "500px" }}>
               <ReactFlow nodes={nodes} edges={edges} fitView>
                 <Background color="#eef1f6" gap={20} />

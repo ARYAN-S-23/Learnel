@@ -42,20 +42,16 @@ const MenuBar = ({ editor }) => {
     <button
       onClick={onClick}
       title={title}
-      className={`p-1.5 rounded-lg transition-colors ${
-        isActive
-          ? "bg-indigo-50 text-indigo-600"
-          : "text-slate-500 hover:bg-slate-100 hover:text-slate-700"
-      }`}
+      className={`p-1.5 rounded-lg transition-colors ${isActive ? "bg-indigo-50 text-indigo-600" : "text-gray-500 hover:bg-gray-100 hover:text-gray-900"}`}
     >
       {children}
     </button>
   );
 
-  const Divider = () => <div className="w-px h-6 bg-[#eef1f6] mx-1" />;
+  const Divider = () => <div className="w-px h-6 bg-border mx-1" />;
 
   return (
-    <div className="flex items-center flex-wrap gap-0.5 px-4 py-3 bg-[#f8f9fd] border-b border-[#eef1f6] rounded-t-2xl">
+    <div className="flex items-center flex-wrap gap-0.5 px-4 py-3 bg-gray-50 border-b border-border rounded-t-2xl">
       <div className="flex items-center gap-0.5">
         <Button
           onClick={() => editor.chain().focus().toggleBold().run()}
@@ -211,13 +207,7 @@ const MenuBar = ({ editor }) => {
           </span>
         )}
         <button
-          className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full font-medium text-sm transition-all ${
-            saveStatus === "saved"
-              ? "bg-emerald-500 hover:bg-emerald-600 text-white"
-              : saveStatus === "saving"
-                ? "bg-slate-400 text-white cursor-not-allowed"
-                : "bg-emerald-500 hover:bg-emerald-600 text-white"
-          }`}
+          className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full font-medium text-sm transition-all ${saveStatus === "saved" ? "bg-emerald-500 hover:bg-emerald-600 text-white" : saveStatus === "saving" ? "bg-gray-400 text-white cursor-not-allowed" : "bg-emerald-500 hover:bg-emerald-600 text-white"}`}
           disabled={saveStatus === "saving"}
         >
           <Save size={14} />
@@ -292,7 +282,7 @@ export default function NotesEditor() {
     return (
       <div className="flex items-center justify-center">
         <div className="text-center">
-          <p className="text-slate-500 text-lg">Topic not found</p>
+          <p className="text-gray-500 text-lg">Topic not found</p>
           <button
             onClick={() => navigate("/topics")}
             className="mt-4 text-indigo-500 hover:text-indigo-600 font-medium"
@@ -309,30 +299,30 @@ export default function NotesEditor() {
       <div>
         <button
           onClick={() => navigate(`/topics/${topicId}`)}
-          className="flex items-center gap-1.5 text-slate-500 hover:text-slate-700 text-sm font-medium mb-4 transition-colors"
+          className="flex items-center gap-1.5 text-gray-500 hover:text-gray-900 text-sm font-medium mb-4 transition-colors"
         >
           <ArrowLeft size={16} />
           Back to topic
         </button>
 
-        <div className="bg-white rounded-2xl border border-[#eef1f6] overflow-hidden">
-          <div className="px-6 py-4 border-b border-[#eef1f6]">
+        <div className="bg-white dark:bg-bg-card rounded-2xl border border-border overflow-hidden">
+          <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-border">
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="text-xl font-semibold text-[#1e293b] w-full bg-transparent outline-none placeholder:text-slate-300"
+              className="text-xl font-semibold text-gray-900 w-full bg-transparent outline-none placeholder:text-gray-300"
               placeholder="Untitled Notes"
             />
-            <p className="text-sm text-[#64748b] mt-1">{topic.name}</p>
+            <p className="text-sm text-gray-400 mt-1">{topic.name}</p>
           </div>
 
           <MenuBar editor={editor} />
 
-          <div className="p-6">
+          <div className="p-4 sm:p-6">
             <EditorContent
               editor={editor}
-              className="prose prose-slate max-w-none min-h-[400px] focus:outline-none [&_.ProseEditor]:min-h-[400px] [&_.ProseEditor]:outline-none [&_.ProseEditor_p.is-editor-empty:first-child::before]:text-slate-400 [&_.ProseEditor_p.is-editor-empty:first-child::before]:content-[attr(data-placeholder)] [&_.ProseEditor_p.is-editor-empty:first-child::before]:float-left [&_.ProseEditor_p.is-editor-empty:first-child::before]:pointer-events-none"
+              className="prose prose-slate max-w-none min-h-[400px] focus:outline-none [&_.ProseEditor]:min-h-[400px] [&_.ProseEditor]:outline-none [&_.ProseEditor_p.is-editor-empty:first-child::before]:text-gray-400 [&_.ProseEditor_p.is-editor-empty:first-child::before]:content-[attr(data-placeholder)] [&_.ProseEditor_p.is-editor-empty:first-child::before]:float-left [&_.ProseEditor_p.is-editor-empty:first-child::before]:pointer-events-none"
             />
           </div>
         </div>

@@ -58,28 +58,28 @@ const Achievements = () => {
               <Trophy size={20} className="text-amber-500" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-slate-800">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
                 Achievements
               </h1>
-              <p className="text-slate-400 text-sm mt-1">
+              <p className="text-gray-400 text-sm mt-1">
                 {unlocked.length}/{(achievements || []).length} Unlocked
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-5 border border-[#eef1f6] mb-8">
+        <div className="bg-white dark:bg-bg-card rounded-2xl p-4 sm:p-5 border border-border mb-8">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-slate-700 font-medium text-sm">
+            <span className="text-gray-900 font-medium text-sm">
               Overall Progress
             </span>
-            <span className="text-[#5b5fc7] font-semibold text-sm">
+            <span className="text-indigo-500 font-semibold text-sm">
               {progressPercent}%
             </span>
           </div>
-          <div className="w-full bg-[#f0f2f8] rounded-full h-2.5">
+          <div className="w-full bg-gray-50 rounded-full h-2.5">
             <div
-              className="bg-[#5b5fc7] h-2.5 rounded-full transition-all"
+              className="bg-indigo-500 h-2.5 rounded-full transition-all"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
@@ -87,7 +87,7 @@ const Achievements = () => {
 
         {unlocked.length > 0 && (
           <div className="mb-8">
-            <h2 className="text-sm font-semibold text-slate-500 mb-4 uppercase tracking-wider flex items-center gap-2">
+            <h2 className="text-sm font-semibold text-gray-500 mb-4 uppercase tracking-wider flex items-center gap-2">
               <CheckCircle2 size={16} className="text-emerald-500" /> Unlocked
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -96,18 +96,18 @@ const Achievements = () => {
                 return (
                   <div
                     key={ach.id}
-                    className="bg-white rounded-2xl p-5 border border-[#eef1f6] hover:shadow-md transition-all text-center"
+                    className="bg-white dark:bg-bg-card rounded-2xl p-4 sm:p-5 border border-border hover:shadow-md transition-all text-center"
                   >
                     <div className="w-14 h-14 rounded-full bg-indigo-100 flex items-center justify-center mx-auto mb-3">
-                      <Icon size={26} className="text-[#5b5fc7]" />
+                      <Icon size={26} className="text-indigo-500" />
                     </div>
-                    <h3 className="text-slate-800 font-semibold text-sm mb-1">
+                    <h3 className="text-gray-900 font-semibold text-sm mb-1">
                       {ach.title}
                     </h3>
-                    <p className="text-slate-400 text-xs mb-3 line-clamp-2">
+                    <p className="text-gray-400 text-xs mb-3 line-clamp-2">
                       {ach.description}
                     </p>
-                    <div className="flex items-center justify-center gap-1 text-slate-400 text-xs">
+                    <div className="flex items-center justify-center gap-1 text-gray-400 text-xs">
                       <Clock size={11} />
                       {formatDate(ach.unlockedAt)}
                     </div>
@@ -120,7 +120,7 @@ const Achievements = () => {
 
         {locked.length > 0 && (
           <div>
-            <h2 className="text-sm font-semibold text-slate-400 mb-4 uppercase tracking-wider flex items-center gap-2">
+            <h2 className="text-sm font-semibold text-gray-400 mb-4 uppercase tracking-wider flex items-center gap-2">
               <Lock size={16} /> Locked
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -129,18 +129,18 @@ const Achievements = () => {
                 return (
                   <div
                     key={ach.id}
-                    className="bg-white rounded-2xl p-5 border border-[#eef1f6] opacity-50 text-center"
+                    className="bg-white dark:bg-bg-card rounded-2xl p-5 border border-border opacity-50 text-center"
                   >
-                    <div className="w-14 h-14 rounded-full bg-[#f0f2f8] flex items-center justify-center mx-auto mb-3">
-                      <Icon size={26} className="text-slate-300" />
+                    <div className="w-14 h-14 rounded-full bg-gray-50 dark:bg-white/5 flex items-center justify-center mx-auto mb-3">
+                      <Icon size={26} className="text-gray-300" />
                     </div>
-                    <h3 className="text-slate-500 font-semibold text-sm mb-1">
+                    <h3 className="text-gray-500 font-semibold text-sm mb-1">
                       {ach.title}
                     </h3>
-                    <p className="text-slate-400 text-xs mb-3 line-clamp-2">
+                    <p className="text-gray-400 text-xs mb-3 line-clamp-2">
                       {ach.description}
                     </p>
-                    <span className="inline-flex items-center gap-1 text-xs font-medium text-slate-400 bg-[#f0f2f8] px-2.5 py-1 rounded-full">
+                    <span className="inline-flex items-center gap-1 text-xs font-medium text-gray-400 bg-gray-50 px-2.5 py-1 rounded-full">
                       <Lock size={10} /> Locked
                     </span>
                   </div>

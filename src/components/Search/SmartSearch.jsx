@@ -110,7 +110,7 @@ const SmartSearch = () => {
   };
 
   const colorMap = {
-    topic: "bg-indigo-100 text-[#5b5fc7]",
+    topic: "bg-indigo-100 text-indigo-500",
     task: "bg-purple-100 text-purple-600",
     note: "bg-sky-100 text-sky-600",
     resource: "bg-emerald-100 text-emerald-600",
@@ -130,7 +130,7 @@ const SmartSearch = () => {
 
     return (
       <div key={type} className="mb-6">
-        <h3 className="text-xs font-semibold text-slate-500 mb-3 uppercase tracking-wider">
+        <h3 className="text-xs font-semibold text-gray-500 mb-3 uppercase tracking-wider">
           {groupLabel[type]} ({items.length})
         </h3>
         <div className="space-y-2">
@@ -142,26 +142,26 @@ const SmartSearch = () => {
             else if (item.type === "note") linkTo = `/topics/${item.id}`;
 
             const content = (
-              <div className="bg-white rounded-2xl p-4 border border-[#eef1f6] hover:shadow-md transition-all flex items-center gap-4 group">
+              <div className="bg-white dark:bg-bg-card rounded-2xl p-3 sm:p-4 border border-border hover:shadow-md transition-all flex items-center gap-4 group">
                 <div
                   className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${color}`}
                 >
                   <Icon size={18} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <h4 className="text-slate-800 font-medium truncate group-hover:text-[#5b5fc7] transition-colors">
+                  <h4 className="text-gray-900 font-medium truncate group-hover:text-indigo-500 transition-colors">
                     {item.title}
                   </h4>
-                  <p className="text-slate-400 text-sm truncate">
+                  <p className="text-gray-400 text-sm truncate">
                     {item.snippet}
                   </p>
                 </div>
-                <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-[#f0f2f8] text-slate-500 shrink-0">
+                <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-gray-50 text-gray-500 shrink-0">
                   {getSubjectName(item.subjectId)}
                 </span>
                 <ArrowRight
                   size={16}
-                  className="text-slate-300 shrink-0 group-hover:text-[#5b5fc7] transition-colors"
+                  className="text-gray-300 shrink-0 group-hover:text-indigo-500 transition-colors"
                 />
               </div>
             );
@@ -201,24 +201,24 @@ const SmartSearch = () => {
         <div className="mb-6">
           <div className="flex items-start gap-3">
             <div className="w-10 h-10 rounded-xl bg-indigo-100 flex items-center justify-center">
-              <Search size={20} className="text-[#5b5fc7]" />
+              <Search size={20} className="text-indigo-500" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-slate-800">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
                 Smart Search
               </h1>
-              <p className="text-slate-400 text-sm mt-1">
+              <p className="text-gray-400 text-sm mt-1">
                 Search across all your topics, tasks, notes, and resources
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl border border-[#eef1f6] p-4 mb-5">
+        <div className="bg-white dark:bg-bg-card rounded-2xl border border-border p-4 mb-5">
           <div className="relative">
             <Search
               size={20}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300"
             />
             <input
               type="text"
@@ -229,14 +229,14 @@ const SmartSearch = () => {
                   addSearchHistory(query.trim());
                 }
               }}
-              className="w-full bg-[#f8f9fd] border border-[#eef1f6] rounded-xl pl-12 pr-10 py-3.5 text-slate-800 text-base placeholder-slate-400 focus:ring-2 focus:ring-[#5b5fc7]/20 focus:border-[#5b5fc7] transition-all"
+              className="w-full bg-gray-50 border border-border rounded-xl pl-12 pr-10 py-3 text-sm sm:text-base text-gray-900 placeholder-slate-400 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
               placeholder="Search topics, tasks, resources..."
               autoFocus
             />
             {query && (
               <button
                 onClick={() => setQuery("")}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 hover:text-slate-500 transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500 transition-colors"
               >
                 <X size={16} />
               </button>
@@ -247,12 +247,12 @@ const SmartSearch = () => {
         {!query.trim() && searchHistory && searchHistory.length > 0 && (
           <div className="mb-6">
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider flex items-center gap-1.5">
+              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider flex items-center gap-1.5">
                 <Clock size={12} /> Recent Searches
               </h3>
               <button
                 onClick={clearSearchHistory}
-                className="text-xs text-slate-300 hover:text-red-500 transition-colors"
+                className="text-xs text-gray-300 hover:text-red-500 transition-colors"
               >
                 Clear
               </button>
@@ -262,7 +262,7 @@ const SmartSearch = () => {
                 <button
                   key={i}
                   onClick={() => setQuery(term)}
-                  className="px-4 py-1.5 rounded-full bg-[#f0f2f8] text-slate-500 text-sm hover:bg-indigo-100 hover:text-[#5b5fc7] transition-all"
+                  className="px-4 py-1.5 rounded-full bg-gray-50 text-gray-500 text-sm hover:bg-indigo-100 hover:text-indigo-500 transition-all"
                 >
                   {term}
                 </button>
@@ -272,30 +272,30 @@ const SmartSearch = () => {
         )}
 
         {query.trim() && (
-          <p className="text-slate-400 text-sm mb-4">
+          <p className="text-gray-400 text-sm mb-4">
             {totalResults} result{totalResults !== 1 ? "s" : ""} found
           </p>
         )}
 
         {!query.trim() ? (
-          <div className="bg-white rounded-2xl p-12 border border-[#eef1f6] text-center">
+          <div className="bg-white dark:bg-bg-card rounded-2xl p-12 border border-border text-center">
             <div className="w-20 h-20 rounded-full bg-indigo-100 flex items-center justify-center mx-auto mb-4">
-              <Search size={32} className="text-[#5b5fc7]" />
+              <Search size={32} className="text-indigo-500" />
             </div>
-            <p className="text-slate-600 font-medium">
+            <p className="text-gray-600 font-medium">
               Search across all your learning data
             </p>
-            <p className="text-slate-400 text-sm mt-1">
+            <p className="text-gray-400 text-sm mt-1">
               Find topics, tasks, notes, and resources instantly
             </p>
           </div>
         ) : totalResults === 0 ? (
-          <div className="bg-white rounded-2xl p-12 border border-[#eef1f6] text-center">
-            <div className="w-20 h-20 rounded-full bg-[#f0f2f8] flex items-center justify-center mx-auto mb-4">
-              <Search size={32} className="text-slate-300" />
+          <div className="bg-white dark:bg-bg-card rounded-2xl p-12 border border-border text-center">
+            <div className="w-20 h-20 rounded-full bg-gray-50 dark:bg-white/5 flex items-center justify-center mx-auto mb-4">
+              <Search size={32} className="text-gray-300" />
             </div>
-            <p className="text-slate-600 font-medium">No results found</p>
-            <p className="text-slate-400 text-sm mt-1">
+            <p className="text-gray-600 font-medium">No results found</p>
+            <p className="text-gray-400 text-sm mt-1">
               Try a different search term
             </p>
           </div>

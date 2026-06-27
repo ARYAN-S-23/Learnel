@@ -106,35 +106,35 @@ const StudyTimer = () => {
       <div>
         <div className="mb-8">
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#e8e9f8] flex items-center justify-center">
-              <Clock size={22} className="text-[#5b5fc7]" />
+            <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 flex items-center justify-center">
+              <Clock size={22} className="text-indigo-500" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-[#1e293b]">Study Timer</h1>
-              <p className="text-[#64748b] text-sm mt-1">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
+                Study Timer
+              </h1>
+              <p className="text-gray-400 text-sm mt-1">
                 Pomodoro-style focused study sessions
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-8 border border-[#eef1f6] mb-6">
+        <div className="bg-white dark:bg-bg-card rounded-2xl p-4 sm:p-8 border border-border mb-6">
           <div className="flex items-center justify-between mb-6">
-            <label className="text-sm text-[#64748b] font-medium">
-              Subject
-            </label>
+            <label className="text-sm text-gray-400 font-medium">Subject</label>
             <button
               onClick={() => setShowSettings(!showSettings)}
-              className={`p-2 rounded-xl transition-all ${showSettings ? "bg-[#e8e9f8] text-[#5b5fc7]" : "text-[#94a3b8] hover:text-[#1e293b] hover:bg-[#f0f2f8]"}`}
+              className={`p-2 rounded-xl transition-all ${showSettings ? "bg-indigo-50 text-indigo-500" : "text-gray-300 hover:text-gray-900 hover:bg-gray-50"}`}
             >
               <Settings size={16} />
             </button>
           </div>
 
           {subjects.length === 0 ? (
-            <div className="mb-6 p-4 rounded-xl bg-[#f8f9fd] border border-[#eef1f6] text-center">
-              <BookOpen size={24} className="text-[#c5c7e8] mx-auto mb-2" />
-              <p className="text-[#64748b] text-sm">
+            <div className="mb-6 p-4 rounded-xl bg-gray-50 border border-border text-center">
+              <BookOpen size={24} className="text-indigo-300 mx-auto mb-2" />
+              <p className="text-gray-400 text-sm">
                 Create a subject first to start tracking study sessions.
               </p>
             </div>
@@ -143,12 +143,12 @@ const StudyTimer = () => {
               <div className="relative">
                 <BookOpen
                   size={16}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-[#94a3b8]"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300"
                 />
                 <select
                   value={selectedSubject}
                   onChange={(e) => setSelectedSubject(e.target.value)}
-                  className="w-full bg-[#f8f9fd] border border-[#eef1f6] rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#1e293b] focus:ring-2 focus:ring-[#5b5fc7]/20 focus:border-[#5b5fc7] outline-none transition-all"
+                  className="w-full bg-gray-50 border border-border rounded-xl pl-10 pr-4 py-2.5 text-sm text-gray-900 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all"
                 >
                   <option value="">Choose a subject</option>
                   {subjects.map((s) => (
@@ -162,9 +162,9 @@ const StudyTimer = () => {
           )}
 
           {showSettings && (
-            <div className="mb-6 p-4 rounded-xl bg-[#f8f9fd] border border-[#eef1f6] space-y-3">
+            <div className="mb-6 p-4 rounded-xl bg-gray-50 border border-border space-y-3">
               <div className="flex items-center gap-4">
-                <label className="text-sm text-[#64748b] w-28 font-medium">
+                <label className="text-sm text-gray-400 w-28 font-medium">
                   Work (min)
                 </label>
                 <input
@@ -173,11 +173,11 @@ const StudyTimer = () => {
                   max={120}
                   value={workMinutes}
                   onChange={(e) => handleWorkMinutesChange(e.target.value)}
-                  className="flex-1 bg-white border border-[#eef1f6] rounded-xl px-3 py-1.5 text-sm text-[#1e293b] focus:ring-2 focus:ring-[#5b5fc7]/20 focus:border-[#5b5fc7] outline-none transition-all"
+                  className="flex-1 bg-white dark:bg-bg-card border border-border rounded-xl px-3 py-1.5 text-sm text-gray-900 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all"
                 />
               </div>
               <div className="flex items-center gap-4">
-                <label className="text-sm text-[#64748b] w-28 font-medium">
+                <label className="text-sm text-gray-400 w-28 font-medium">
                   Break (min)
                 </label>
                 <input
@@ -186,21 +186,21 @@ const StudyTimer = () => {
                   max={60}
                   value={breakMinutes}
                   onChange={(e) => handleBreakMinutesChange(e.target.value)}
-                  className="flex-1 bg-white border border-[#eef1f6] rounded-xl px-3 py-1.5 text-sm text-[#1e293b] focus:ring-2 focus:ring-[#5b5fc7]/20 focus:border-[#5b5fc7] outline-none transition-all"
+                  className="flex-1 bg-white dark:bg-bg-card border border-border rounded-xl px-3 py-1.5 text-sm text-gray-900 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 outline-none transition-all"
                 />
               </div>
             </div>
           )}
 
           <div className="flex flex-col items-center mb-6">
-            <div className="relative w-48 h-48">
+            <div className="relative w-40 sm:w-48 h-40 sm:h-48">
               <svg className="w-full h-full -rotate-90" viewBox="0 0 200 200">
                 <circle
                   cx="100"
                   cy="100"
                   r={radius}
                   fill="none"
-                  stroke="#eef1f6"
+                  stroke="#eaedf2"
                   strokeWidth="8"
                 />
                 <circle
@@ -208,7 +208,7 @@ const StudyTimer = () => {
                   cy="100"
                   r={radius}
                   fill="none"
-                  stroke={mode === "work" ? "#5b5fc7" : "#10b981"}
+                  stroke={mode === "work" ? "#6366f1" : "#10b981"}
                   strokeWidth="8"
                   strokeLinecap="round"
                   strokeDasharray={circumference}
@@ -217,11 +217,11 @@ const StudyTimer = () => {
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-4xl font-bold text-[#1e293b] font-mono">
+                <span className="text-3xl sm:text-4xl font-bold text-gray-900 font-mono">
                   {formatTime(timeLeft)}
                 </span>
                 <span
-                  className={`text-sm mt-1 font-medium ${mode === "work" ? "text-[#5b5fc7]" : "text-emerald-500"}`}
+                  className={`text-sm mt-1 font-medium ${mode === "work" ? "text-indigo-500" : "text-emerald-500"}`}
                 >
                   {mode === "work" ? "Study" : "Break"}
                 </span>
@@ -232,18 +232,14 @@ const StudyTimer = () => {
           <div className="flex items-center justify-center gap-4">
             <button
               onClick={reset}
-              className="w-12 h-12 rounded-xl bg-[#f0f2f8] border border-[#eef1f6] flex items-center justify-center text-[#1e293b] hover:bg-[#e8e9f8] transition-all"
+              className="w-12 h-12 rounded-xl bg-gray-50 dark:bg-white/5 border border-border flex items-center justify-center text-gray-900 hover:bg-indigo-50 transition-all"
             >
               <RotateCcw size={20} />
             </button>
             <button
               onClick={toggle}
               disabled={subjects.length === 0}
-              className={`w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg transition-all ${
-                isRunning
-                  ? "bg-[#f0c674] hover:bg-[#e5b94e]"
-                  : "bg-emerald-400 hover:bg-emerald-500"
-              } disabled:opacity-40`}
+              className={`w-16 h-16 rounded-2xl flex items-center justify-center text-white shadow-lg transition-all ${isRunning ? "bg-[#f0c674] hover:bg-[#e5b94e]" : "bg-emerald-400 hover:bg-emerald-500"} disabled:opacity-40`}
             >
               {isRunning ? (
                 <Pause size={28} />
@@ -255,25 +251,25 @@ const StudyTimer = () => {
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl p-6 border border-[#eef1f6]">
+        <div className="bg-white dark:bg-bg-card rounded-2xl p-4 sm:p-6 border border-border">
           <div className="grid grid-cols-2 gap-4">
-            <div className="text-center p-4 rounded-xl bg-[#f8f9fd] border border-[#eef1f6]">
+            <div className="text-center p-4 rounded-xl bg-gray-50 border border-border">
               <div className="flex items-center justify-center gap-2 mb-1">
-                <CheckCircle2 size={18} className="text-[#5b5fc7]" />
-                <p className="text-2xl font-bold text-[#5b5fc7]">
+                <CheckCircle2 size={18} className="text-indigo-500" />
+                <p className="text-2xl font-bold text-indigo-500">
                   {sessionsCompleted}
                 </p>
               </div>
-              <p className="text-[#64748b] text-sm">Sessions Done</p>
+              <p className="text-gray-400 text-sm">Sessions Done</p>
             </div>
-            <div className="text-center p-4 rounded-xl bg-[#f8f9fd] border border-[#eef1f6]">
+            <div className="text-center p-4 rounded-xl bg-gray-50 border border-border">
               <div className="flex items-center justify-center gap-2 mb-1">
                 <Clock size={18} className="text-emerald-500" />
                 <p className="text-2xl font-bold text-emerald-500">
                   {formatTime(elapsed)}
                 </p>
               </div>
-              <p className="text-[#64748b] text-sm">Total Time</p>
+              <p className="text-gray-400 text-sm">Total Time</p>
             </div>
           </div>
         </div>

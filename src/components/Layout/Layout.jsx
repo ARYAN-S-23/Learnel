@@ -8,7 +8,7 @@ export default function Layout() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="flex h-screen bg-[#f0f2f8] text-[#1e293b]">
+    <div className="flex h-screen bg-bg text-gray-900 dark:text-gray-100">
       <Sidebar
         collapsed={collapsed}
         onCollapse={setCollapsed}

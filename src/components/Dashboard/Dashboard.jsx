@@ -12,7 +12,8 @@ import {
   Brain,
   ArrowRight,
   GraduationCap,
-  Sparkles,
+  Flame,
+  ChevronRight,
 } from "lucide-react";
 import {
   AreaChart,
@@ -25,73 +26,76 @@ import {
 } from "recharts";
 import StatCard from "./StatCard";
 
-// ---------- EMPTY STATE ----------
+// ─── Empty State ──────────────────────────────────
 const EmptyState = ({ icon: Icon, title, description, action, actionTo }) => (
-  <div className="flex flex-col items-center justify-center py-12 text-center">
-    <div
-      className="w-14 h-14 rounded-2xl flex items-center justify-center mb-4"
-      style={{ backgroundColor: "var(--color-primary-50)" }}
-    >
-      <Icon size={24} style={{ color: "var(--color-text-muted)" }} />
+  <div className="flex flex-col items-center justify-center py-8 text-center">
+    <div className="w-9 h-9 rounded-xl bg-gray-50 dark:bg-white/5 flex items-center justify-center mb-3">
+      <Icon size={15} className="text-gray-300" />
     </div>
-    <p
-      className="text-base font-semibold mb-1.5"
-      style={{ color: "var(--color-text)" }}
-    >
-      {title}
-    </p>
-    <p
-      className="text-sm mb-5 max-w-xs"
-      style={{ color: "var(--color-text-secondary)" }}
-    >
+    <p className="text-[13px] font-semibold text-gray-600 mb-1">{title}</p>
+    <p className="text-[11px] text-gray-400 mb-4 max-w-[200px] leading-relaxed">
       {description}
     </p>
     {action && (
       <Link
         to={actionTo}
-        className="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2"
-        style={{
-          color: "var(--color-primary)",
-          "--tw-ring-color": "var(--color-primary)",
-        }}
-        aria-label={`${action} – ${description}`}
+        className="inline-flex items-center gap-1 text-[12px] font-semibold text-indigo-600 hover:text-indigo-700 transition-colors focus:outline-none rounded"
+        aria-label={action}
       >
-        {action}
-        <ArrowRight size={14} />
+        {action} <ArrowRight size={11} />
       </Link>
     )}
   </div>
 );
 
-// ---------- CUSTOM TOOLTIP ----------
+// ─── Custom Chart Tooltip ─────────────────────────
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div
-        className="rounded-xl shadow-lg px-4 py-2.5"
-        style={{
-          backgroundColor: "var(--color-bg-card)",
-          border: `1px solid var(--color-border)`,
-        }}
-      >
-        <p
-          className="text-xs font-medium mb-0.5"
-          style={{ color: "var(--color-text-muted)" }}
-        >
-          {label}
-        </p>
-        <p
-          className="text-base font-bold"
-          style={{ color: "var(--color-primary)" }}
-        >
-          {payload[0].value}h
-        </p>
+      <div className="bg-[#111118] text-white rounded-xl shadow-xl px-3.5 py-2.5">
+        <p className="text-[10px] font-medium text-white/50 mb-0.5">{label}</p>
+        <p className="text-sm font-bold">{payload[0].value}h</p>
       </div>
     );
   }
   return null;
 };
 
+// ─── Section Header ───────────────────────────────
+const SectionHeader = ({
+  title,
+  subtitle,
+  icon: Icon,
+  iconBg,
+  action,
+  actionTo,
+}) => (
+  <div className="flex items-center justify-between mb-5">
+    <div className="flex items-center gap-2.5">
+      <div
+        className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 ${iconBg}`}
+      >
+        <Icon size={13} className="text-white" />
+      </div>
+      <div>
+        <h2 className="text-[13px] font-bold text-gray-900 leading-none">
+          {title}
+        </h2>
+        <p className="text-[10px] text-gray-400 mt-0.5">{subtitle}</p>
+      </div>
+    </div>
+    {action && (
+      <Link
+        to={actionTo}
+        className="text-[11px] font-semibold text-indigo-600 hover:text-indigo-700 flex items-center gap-0.5 transition-colors focus:outline-none rounded"
+      >
+        {action} <ChevronRight size={11} />
+      </Link>
+    )}
+  </div>
+);
+
+// ─── Dashboard ────────────────────────────────────
 const Dashboard = () => {
   const {
     subjects,
@@ -117,7 +121,6 @@ const Dashboard = () => {
 
   const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
-    year: "numeric",
     month: "long",
     day: "numeric",
   });
@@ -129,40 +132,33 @@ const Dashboard = () => {
     return "Good evening";
   };
 
-  return (
-    <div className="space-y-8">
-      {/* ═══════════════════ HERO ═══════════════════ */}
-      <div
-        className="relative overflow-hidden rounded-3xl px-6 py-8 md:px-10 md:py-10 text-white shadow-xl"
-        style={{
-          background:
-            "linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))",
-          boxShadow: "0 10px 40px -10px rgba(var(--color-primary), 0.3)",
-        }}
-      >
-        <div
-          className="absolute inset-0 opacity-80"
-          style={{
-            background:
-              "radial-gradient(ellipse at top left, rgba(255,255,255,0.15), transparent 50%)",
-          }}
-        />
-        <div className="absolute -right-20 -top-20 h-80 w-80 rounded-full bg-white/5 blur-3xl" />
+  const subjectPalette = [
+    { bar: "bg-indigo-500", chip: "text-indigo-600 bg-indigo-50" },
+    { bar: "bg-blue-500", chip: "text-blue-600 bg-blue-50" },
+    { bar: "bg-violet-500", chip: "text-violet-600 bg-violet-50" },
+    { bar: "bg-amber-500", chip: "text-amber-600 bg-amber-50" },
+    { bar: "bg-rose-500", chip: "text-rose-600 bg-rose-50" },
+  ];
 
-        <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div className="max-w-2xl">
-            <div className="flex items-center gap-2.5 mb-3">
-              <Sparkles
-                size={16}
-                style={{ color: "var(--color-accent)" }}
-                className="shrink-0"
-              />
-              <span className="text-sm font-medium text-white/70">{today}</span>
-            </div>
-            <h1 className="text-2xl md:text-3xl font-bold leading-tight">
-              {greeting()}, {displayName}
+  return (
+    <div className="space-y-4 pb-8 animate-fade-in">
+      {/* ══════════════════ HERO ══════════════════ */}
+      <div className="relative overflow-hidden rounded-2xl bg-[#111118] px-6 py-7 sm:px-8 sm:py-8 text-white">
+        {/* ambient glows */}
+        <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-indigo-600/20 blur-3xl pointer-events-none" />
+        <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-violet-600/10 blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+          {/* greeting */}
+          <div>
+            <p className="text-[10px] font-semibold tracking-[0.14em] text-white/30 uppercase mb-2">
+              {today}
+            </p>
+            <h1 className="text-[1.65rem] font-extrabold tracking-tight leading-tight">
+              {greeting()},&nbsp;
+              <span className="text-indigo-300">{displayName}</span>
             </h1>
-            <p className="mt-3 text-sm md:text-base leading-relaxed text-white/80 max-w-xl">
+            <p className="mt-2 text-sm text-white/40 max-w-xs leading-relaxed">
               {subjects.length === 0
                 ? "Create your first subject to start learning."
                 : streak > 0
@@ -171,576 +167,390 @@ const Dashboard = () => {
             </p>
           </div>
 
-          <div className="hidden md:flex items-center gap-8 shrink-0">
-            <div className="text-center">
-              <p className="text-3xl font-bold">{subjects.length}</p>
-              <p className="text-xs text-white/60 mt-1">Subjects</p>
-            </div>
-            <div className="w-px h-10 bg-white/15" />
-            <div className="text-center">
-              <p className="text-3xl font-bold">{streak}</p>
-              <p className="text-xs text-white/60 mt-1">Day Streak</p>
-            </div>
-            <div className="w-px h-10 bg-white/15" />
-            <div className="text-center">
-              <p className="text-3xl font-bold">
-                {overallProgress}
-                <span className="text-lg">%</span>
-              </p>
-              <p className="text-xs text-white/60 mt-1">Progress</p>
-            </div>
+          {/* stat chips */}
+          <div className="flex items-stretch gap-2 shrink-0">
+            {[
+              {
+                icon: BookOpen,
+                color: "text-indigo-300",
+                label: "Subjects",
+                value: subjects.length,
+              },
+              {
+                icon: Flame,
+                color: "text-amber-300",
+                label: "Streak",
+                value: streak,
+              },
+              {
+                icon: TrendingUp,
+                color: "text-emerald-300",
+                label: "Progress",
+                value: `${overallProgress}%`,
+              },
+            ].map(({ icon: Ic, color, label, value }) => (
+              <div
+                key={label}
+                className="flex flex-col items-center justify-center bg-white/[0.055] border border-white/[0.08] rounded-xl px-3.5 py-3 min-w-[62px]"
+              >
+                <Ic size={13} className={`${color} mb-1.5`} />
+                <p className="text-[1.1rem] font-bold leading-none tabular-nums">
+                  {value}
+                </p>
+                <p className="text-[9px] text-white/30 mt-1 font-semibold tracking-wide uppercase">
+                  {label}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* ═══════════════════ QUICK ACTIONS ═══════════════════ */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* ══════════════════ QUICK ACTIONS ══════════════════ */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        {/* Featured */}
         <Link
           to="/subjects"
-          aria-label="Create a new subject"
-          className="group relative overflow-hidden rounded-2xl p-5 sm:p-6 text-white shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2"
-          style={{
-            background:
-              "linear-gradient(135deg, var(--color-primary-light), var(--color-primary))",
-          }}
+          aria-label="Go to Subjects"
+          className="group relative overflow-hidden rounded-xl bg-gradient-to-br from-indigo-500 via-indigo-600 to-violet-600 p-4 text-white shadow-lg shadow-indigo-500/20 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/30 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
-          <div className="flex items-start justify-between mb-4">
-            <div
-              className="inline-flex h-11 w-11 items-center justify-center rounded-xl backdrop-blur-sm"
-              style={{ backgroundColor: "rgba(255,255,255,0.2)" }}
-            >
-              <BookOpen size={22} />
+          <div className="flex items-center justify-between mb-3.5">
+            <div className="w-8 h-8 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center">
+              <BookOpen size={15} />
             </div>
-            <ArrowRight
-              size={16}
-              className="text-white/60 group-hover:text-white group-hover:translate-x-1 transition-all"
-            />
+            <span className="text-[9px] font-bold uppercase tracking-widest text-white/50 bg-white/10 px-1.5 py-0.5 rounded-full">
+              Setup
+            </span>
           </div>
-          <h3 className="text-sm sm:text-base font-bold mb-1">
-            Create Subject
-          </h3>
-          <p className="text-[11px] sm:text-xs text-white/70 leading-relaxed">
-            Organize your lessons and build your knowledge base.
+          <p className="text-[13px] font-bold">Subjects</p>
+          <p className="text-[11px] text-white/55 mt-0.5">
+            Manage your courses
           </p>
-          <span
-            className="absolute top-4 right-4 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full backdrop-blur-sm"
-            style={{
-              color: "var(--color-accent)",
-              backgroundColor: "rgba(245,166,35,0.2)",
-            }}
-          >
-            Setup
-          </span>
         </Link>
 
-        {/* Standard quick action cards */}
         <Link
           to="/timer"
-          aria-label="Start focus timer"
-          className="group relative overflow-hidden rounded-2xl p-5 sm:p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2"
-          style={{
-            backgroundColor: "var(--color-bg-card)",
-            border: `1px solid var(--color-border)`,
-          }}
+          aria-label="Open Timer"
+          className="group relative overflow-hidden rounded-xl bg-white dark:bg-bg-card border border-border p-4 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
-          <div className="flex items-start justify-between mb-4">
-            <div
-              className="inline-flex h-11 w-11 items-center justify-center rounded-xl text-white shadow-md"
-              style={{
-                background:
-                  "linear-gradient(135deg, var(--color-accent), #f97316)",
-              }}
-            >
-              <Timer size={22} />
+          <div className="flex items-center justify-between mb-3.5">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-sm">
+              <Timer size={15} className="text-white" />
             </div>
-            <span
-              className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full"
-              style={{
-                color: "var(--color-accent)",
-                backgroundColor: "rgba(245,166,35,0.1)",
-              }}
-            >
+            <span className="text-[9px] font-bold uppercase tracking-widest text-amber-600 bg-amber-50 px-1.5 py-0.5 rounded-full">
               Focus
             </span>
           </div>
-          <h3
-            className="text-sm sm:text-base font-bold mb-1"
-            style={{ color: "var(--color-text)" }}
-          >
-            Start Timer
-          </h3>
-          <p
-            className="text-[11px] sm:text-xs leading-relaxed"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
-            Start a focused countdown and keep your session on track.
+          <p className="text-[13px] font-bold text-gray-900">Timer</p>
+          <p className="text-[11px] text-gray-400 mt-0.5">
+            Start a study session
           </p>
         </Link>
 
         <Link
           to="/quiz"
-          aria-label="Take a quiz"
-          className="group relative overflow-hidden rounded-2xl p-5 sm:p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2"
-          style={{
-            backgroundColor: "var(--color-bg-card)",
-            border: `1px solid var(--color-border)`,
-          }}
+          aria-label="Open Quiz"
+          className="group relative overflow-hidden rounded-xl bg-white dark:bg-bg-card border border-border p-4 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
-          <div className="flex items-start justify-between mb-4">
-            <div
-              className="inline-flex h-11 w-11 items-center justify-center rounded-xl text-white shadow-md"
-              style={{
-                background: "linear-gradient(135deg, #8b5cf6, #d946ef)",
-              }}
-            >
-              <Brain size={22} />
+          <div className="flex items-center justify-between mb-3.5">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center shadow-sm">
+              <Brain size={15} className="text-white" />
             </div>
-            <span
-              className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full"
-              style={{
-                color: "#8b5cf6",
-                backgroundColor: "rgba(139,92,246,0.1)",
-              }}
-            >
-              Challenge
+            <span className="text-[9px] font-bold uppercase tracking-widest text-violet-600 bg-violet-50 px-1.5 py-0.5 rounded-full">
+              Test
             </span>
           </div>
-          <h3
-            className="text-sm sm:text-base font-bold mb-1"
-            style={{ color: "var(--color-text)" }}
-          >
-            Take Quiz
-          </h3>
-          <p
-            className="text-[11px] sm:text-xs leading-relaxed"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
-            Test your knowledge and track mastery.
+          <p className="text-[13px] font-bold text-gray-900">Quiz</p>
+          <p className="text-[11px] text-gray-400 mt-0.5">
+            Test your knowledge
           </p>
         </Link>
 
         <Link
           to="/planner"
-          aria-label="Open study planner"
-          className="group relative overflow-hidden rounded-2xl p-5 sm:p-6 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2"
-          style={{
-            backgroundColor: "var(--color-bg-card)",
-            border: `1px solid var(--color-border)`,
-          }}
+          aria-label="Open Planner"
+          className="group relative overflow-hidden rounded-xl bg-white dark:bg-bg-card border border-border p-4 hover:-translate-y-0.5 hover:shadow-md transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
-          <div className="flex items-start justify-between mb-4">
-            <div
-              className="inline-flex h-11 w-11 items-center justify-center rounded-xl text-white shadow-md"
-              style={{
-                background: "linear-gradient(135deg, #06b6d4, #0ea5e9)",
-              }}
-            >
-              <Calendar size={22} />
+          <div className="flex items-center justify-between mb-3.5">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-sky-500 flex items-center justify-center shadow-sm">
+              <Calendar size={15} className="text-white" />
             </div>
-            <span
-              className="text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full"
-              style={{
-                color: "#06b6d4",
-                backgroundColor: "rgba(6,182,212,0.1)",
-              }}
-            >
+            <span className="text-[9px] font-bold uppercase tracking-widest text-cyan-600 bg-cyan-50 px-1.5 py-0.5 rounded-full">
               Plan
             </span>
           </div>
-          <h3
-            className="text-sm sm:text-base font-bold mb-1"
-            style={{ color: "var(--color-text)" }}
-          >
-            View Planner
-          </h3>
-          <p
-            className="text-[11px] sm:text-xs leading-relaxed"
-            style={{ color: "var(--color-text-secondary)" }}
-          >
-            Schedule and manage your study sessions.
-          </p>
+          <p className="text-[13px] font-bold text-gray-900">Planner</p>
+          <p className="text-[11px] text-gray-400 mt-0.5">Schedule sessions</p>
         </Link>
       </div>
 
-      {/* ═══════════════════ STAT CARDS ═══════════════════ */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* ══════════════════ STAT CARDS ══════════════════ */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         <StatCard
           title="Overall Progress"
           value={`${overallProgress}%`}
           icon={TrendingUp}
-          color="var(--color-primary)"
+          gradient="bg-gradient-to-br from-indigo-500 to-violet-500"
           progress={overallProgress}
         />
         <StatCard
           title="Total Subjects"
           value={subjects.length}
           icon={BookOpen}
-          color="var(--color-info)"
+          gradient="bg-gradient-to-br from-blue-500 to-cyan-500"
         />
         <StatCard
           title="Upcoming Exams"
           value={upcomingExams.length}
-          icon={Clock}
-          color="var(--color-accent)"
+          icon={Calendar}
+          gradient="bg-gradient-to-br from-amber-400 to-orange-500"
         />
         <StatCard
           title="Pending Tasks"
           value={pendingTasks.length}
           icon={CheckSquare}
-          color="var(--color-danger)"
+          gradient="bg-gradient-to-br from-rose-500 to-pink-500"
         />
       </div>
 
-      {/* ═══════════════════ WEEKLY CHART ═══════════════════ */}
-      <div
-        className="rounded-2xl p-5 sm:p-7"
-        style={{
-          backgroundColor: "var(--color-bg-card)",
-          border: `1px solid var(--color-border)`,
-        }}
-      >
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2
-              className="text-lg font-bold"
-              style={{ color: "var(--color-text)" }}
-            >
-              Weekly Progress
-            </h2>
-            <p
-              className="text-sm mt-1"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
-              Hours studied per day
-            </p>
-          </div>
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center"
-            style={{ backgroundColor: "var(--color-primary-50)" }}
-          >
-            <BarChart3 size={20} style={{ color: "var(--color-primary)" }} />
-          </div>
-        </div>
-        {weeklyData.some((d) => d.hours > 0) ? (
-          <ResponsiveContainer width="100%" height={280}>
-            <AreaChart data={weeklyData}>
-              <defs>
-                <linearGradient id="colorHours" x1="0" y1="0" x2="0" y2="1">
-                  <stop
-                    offset="5%"
-                    stopColor="var(--color-primary-light)"
-                    stopOpacity={0.2}
-                  />
-                  <stop
-                    offset="95%"
-                    stopColor="var(--color-primary-light)"
-                    stopOpacity={0}
-                  />
-                </linearGradient>
-              </defs>
-              <CartesianGrid
-                strokeDasharray="3 3"
-                stroke="var(--color-border)"
-              />
-              <XAxis
-                dataKey="day"
-                stroke="var(--color-text-muted)"
-                fontSize={12}
-                tickLine={false}
-                axisLine={false}
-              />
-              <YAxis
-                stroke="var(--color-text-muted)"
-                fontSize={12}
-                tickLine={false}
-                axisLine={false}
-              />
-              <Tooltip content={<CustomTooltip />} />
-              <Area
-                type="monotone"
-                dataKey="hours"
-                stroke="var(--color-primary)"
-                strokeWidth={2.5}
-                fillOpacity={1}
-                fill="url(#colorHours)"
-              />
-            </AreaChart>
-          </ResponsiveContainer>
-        ) : (
-          <EmptyState
+      {/* ══════════════════ CHART + SUBJECT PROGRESS ══════════════════ */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+        {/* Weekly Chart — 3 / 5 */}
+        <div className="lg:col-span-3 bg-white dark:bg-bg-card rounded-2xl border border-border p-5 sm:p-6">
+          <SectionHeader
+            title="Weekly Progress"
+            subtitle="Hours studied per day"
             icon={BarChart3}
-            title="No study data yet"
-            description="Start a session to see your weekly progress"
-            action="Start Timer"
-            actionTo="/timer"
+            iconBg="bg-indigo-500"
           />
-        )}
-      </div>
-
-      {/* ═══════════════════ SUBJECT PROGRESS ═══════════════════ */}
-      <div
-        className="rounded-2xl p-5 sm:p-7"
-        style={{
-          backgroundColor: "var(--color-bg-card)",
-          border: `1px solid var(--color-border)`,
-        }}
-      >
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2
-              className="text-lg font-bold"
-              style={{ color: "var(--color-text)" }}
-            >
-              Subject Progress
-            </h2>
-            <p
-              className="text-sm mt-1"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
-              Your learning journey
-            </p>
-          </div>
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center"
-            style={{ backgroundColor: "var(--color-primary-50)" }}
-          >
-            <GraduationCap
-              size={20}
-              style={{ color: "var(--color-primary)" }}
+          {weeklyData.some((d) => d.hours > 0) ? (
+            <ResponsiveContainer width="100%" height={200}>
+              <AreaChart
+                data={weeklyData}
+                margin={{ top: 4, right: 4, left: -18, bottom: 0 }}
+              >
+                <defs>
+                  <linearGradient id="colorHours" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.12} />
+                    <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="#f0f1f5"
+                  vertical={false}
+                />
+                <XAxis
+                  dataKey="day"
+                  stroke="transparent"
+                  fontSize={11}
+                  tickLine={false}
+                  tick={{ fill: "#9ca3af" }}
+                />
+                <YAxis
+                  stroke="transparent"
+                  fontSize={11}
+                  tickLine={false}
+                  tick={{ fill: "#9ca3af" }}
+                />
+                <Tooltip
+                  content={<CustomTooltip />}
+                  cursor={{
+                    stroke: "#6366f1",
+                    strokeWidth: 1,
+                    strokeDasharray: "4 4",
+                  }}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="hours"
+                  stroke="#6366f1"
+                  strokeWidth={2}
+                  fillOpacity={1}
+                  fill="url(#colorHours)"
+                  dot={false}
+                  activeDot={{
+                    r: 4,
+                    fill: "#6366f1",
+                    stroke: "#fff",
+                    strokeWidth: 2,
+                  }}
+                />
+              </AreaChart>
+            </ResponsiveContainer>
+          ) : (
+            <EmptyState
+              icon={BarChart3}
+              title="No study data yet"
+              description="Start a session to see your weekly progress"
+              action="Start Timer"
+              actionTo="/timer"
             />
-          </div>
+          )}
         </div>
-        {subjects.length > 0 ? (
-          <div className="space-y-5">
-            {subjects.map((subject) => {
-              const progress = getSubjectProgress(subject.id);
-              const barColors = [
-                "var(--color-primary)",
-                "var(--color-info)",
-                "#8b5cf6",
-                "var(--color-accent)",
-                "var(--color-danger)",
-              ];
-              const barColor =
-                barColors[subjects.indexOf(subject) % barColors.length];
-              return (
-                <div key={subject.id}>
-                  <div className="flex items-center justify-between mb-2">
-                    <span
-                      className="text-sm font-medium"
-                      style={{ color: "var(--color-text)" }}
-                    >
-                      {subject.name}
-                    </span>
-                    <span
-                      className="text-sm font-bold"
-                      style={{ color: "var(--color-text-secondary)" }}
-                    >
-                      {progress}%
-                    </span>
-                  </div>
-                  <div
-                    className="w-full rounded-full h-2.5"
-                    style={{ backgroundColor: "var(--color-border)" }}
-                  >
-                    <div
-                      className="h-2.5 rounded-full transition-all duration-500"
-                      style={{
-                        width: `${progress}%`,
-                        backgroundColor: barColor,
-                      }}
-                    />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <EmptyState
-            icon={BookOpen}
-            title="No subjects yet"
-            description="Add your first subject to start tracking progress"
-            action="Create Subject"
+
+        {/* Subject Progress — 2 / 5 */}
+        <div className="lg:col-span-2 bg-white dark:bg-bg-card rounded-2xl border border-border p-5 sm:p-6">
+          <SectionHeader
+            title="Subject Progress"
+            subtitle="Your learning journey"
+            icon={GraduationCap}
+            iconBg="bg-violet-500"
+            action="All subjects"
             actionTo="/subjects"
           />
-        )}
-      </div>
-
-      {/* ═══════════════════ RECENT ACTIVITY ═══════════════════ */}
-      <div
-        className="rounded-2xl p-5 sm:p-7"
-        style={{
-          backgroundColor: "var(--color-bg-card)",
-          border: `1px solid var(--color-border)`,
-        }}
-      >
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2
-              className="text-lg font-bold"
-              style={{ color: "var(--color-text)" }}
-            >
-              Recent Activity
-            </h2>
-            <p
-              className="text-sm mt-1"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
-              Last 5 study sessions
-            </p>
-          </div>
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center"
-            style={{ backgroundColor: "var(--color-primary-50)" }}
-          >
-            <Clock size={20} style={{ color: "var(--color-text-muted)" }} />
-          </div>
-        </div>
-        {recentSessions.length > 0 ? (
-          <div className="space-y-3">
-            {recentSessions.map((session) => {
-              const subject = subjects.find((s) => s.id === session.subjectId);
-              return (
-                <div
-                  key={session.id}
-                  className="flex items-center gap-4 p-3 rounded-xl transition-colors border border-transparent hover:border-[var(--color-border)]"
-                  style={{ backgroundColor: "var(--color-bg-card)" }}
-                >
-                  <div
-                    className="w-3 h-3 rounded-full shrink-0"
-                    style={{ backgroundColor: "var(--color-primary-light)" }}
-                  />
-                  <div className="flex-1 min-w-0">
-                    <p
-                      className="text-sm font-medium truncate"
-                      style={{ color: "var(--color-text)" }}
-                    >
-                      {subject ? `Studied ${subject.name}` : "Study session"}
-                    </p>
-                    <p
-                      className="text-xs"
-                      style={{ color: "var(--color-text-muted)" }}
-                    >
-                      {session.duration} min ·{" "}
-                      {new Date(session.date).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </p>
+          {subjects.length > 0 ? (
+            <div className="space-y-4">
+              {subjects.slice(0, 5).map((subject, i) => {
+                const progress = getSubjectProgress(subject.id);
+                const p = subjectPalette[i % subjectPalette.length];
+                return (
+                  <div key={subject.id}>
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="text-[12px] font-medium text-gray-700 truncate max-w-[120px]">
+                        {subject.name}
+                      </span>
+                      <span
+                        className={`text-[10px] font-bold px-1.5 py-0.5 rounded-md ml-2 shrink-0 tabular-nums ${p.chip}`}
+                      >
+                        {progress}%
+                      </span>
+                    </div>
+                    <div className="w-full bg-gray-100 rounded-full h-[3px]">
+                      <div
+                        className={`h-[3px] rounded-full transition-all duration-700 ${p.bar}`}
+                        style={{ width: `${progress}%` }}
+                      />
+                    </div>
                   </div>
-                  <span
-                    className="text-sm font-bold px-3 py-1.5 rounded-lg shrink-0"
-                    style={{
-                      color: "var(--color-text-secondary)",
-                      backgroundColor: "var(--color-border)",
-                    }}
-                  >
-                    {session.duration}m
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <EmptyState
-            icon={Clock}
-            title="No activity yet"
-            description="Your recent study sessions will appear here"
-            action="Start studying"
-            actionTo="/timer"
-          />
-        )}
+                );
+              })}
+            </div>
+          ) : (
+            <EmptyState
+              icon={BookOpen}
+              title="No subjects yet"
+              description="Add your first subject to start tracking progress"
+              action="Create Subject"
+              actionTo="/subjects"
+            />
+          )}
+        </div>
       </div>
 
-      {/* ═══════════════════ UPCOMING EXAMS ═══════════════════ */}
-      <div
-        className="rounded-2xl p-5 sm:p-7"
-        style={{
-          backgroundColor: "var(--color-bg-card)",
-          border: `1px solid var(--color-border)`,
-        }}
-      >
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h2
-              className="text-lg font-bold"
-              style={{ color: "var(--color-text)" }}
-            >
-              Upcoming Exams
-            </h2>
-            <p
-              className="text-sm mt-1"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
-              Stay prepared
-            </p>
-          </div>
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center"
-            style={{ backgroundColor: "var(--color-primary-50)" }}
-          >
-            <Calendar size={20} style={{ color: "var(--color-primary)" }} />
-          </div>
+      {/* ══════════════════ ACTIVITY + EXAMS ══════════════════ */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {/* Recent Activity */}
+        <div className="bg-white dark:bg-bg-card rounded-2xl border border-border p-5 sm:p-6">
+          <SectionHeader
+            title="Recent Activity"
+            subtitle="Last 5 study sessions"
+            icon={Clock}
+            iconBg="bg-slate-600"
+          />
+          {recentSessions.length > 0 ? (
+            <div className="space-y-1">
+              {recentSessions.map((session) => {
+                const subject = subjects.find(
+                  (s) => s.id === session.subjectId,
+                );
+                return (
+                  <div
+                    key={session.id}
+                    className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 flex items-center justify-center shrink-0">
+                      <Clock size={12} className="text-indigo-400" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[12px] font-semibold text-gray-800 truncate">
+                        {subject ? subject.name : "Study session"}
+                      </p>
+                      <p className="text-[10px] text-gray-400">
+                        {new Date(session.date).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </p>
+                    </div>
+                    <span className="text-[11px] font-bold text-gray-500 dark:text-text-secondary bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 px-2 py-1 rounded-lg shrink-0 tabular-nums">
+                      {session.duration}m
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <EmptyState
+              icon={Clock}
+              title="No activity yet"
+              description="Your recent study sessions will appear here"
+              action="Start studying"
+              actionTo="/timer"
+            />
+          )}
         </div>
-        {upcomingExams.length > 0 ? (
-          <div className="space-y-3">
-            {upcomingExams.slice(0, 5).map((exam) => {
-              const examDate = new Date(exam.examDate);
-              const today = new Date();
-              const diffTime = examDate.getTime() - today.getTime();
-              const daysUntil =
-                diffTime > 0 ? Math.ceil(diffTime / (1000 * 60 * 60 * 24)) : 0;
-              let badgeStyle = {};
-              if (daysUntil <= 7) {
-                badgeStyle = {
-                  color: "var(--color-danger)",
-                  backgroundColor: "rgba(239,68,68,0.1)",
-                };
-              } else if (daysUntil <= 30) {
-                badgeStyle = {
-                  color: "var(--color-accent)",
-                  backgroundColor: "rgba(245,166,35,0.1)",
-                };
-              } else {
-                badgeStyle = {
-                  color: "var(--color-success)",
-                  backgroundColor: "rgba(16,185,129,0.1)",
-                };
-              }
-              return (
-                <div
-                  key={exam.id}
-                  className="flex items-center justify-between p-4 rounded-xl border transition-colors"
-                  style={{
-                    borderColor: "var(--color-border)",
-                    backgroundColor: "var(--color-bg-card)",
-                  }}
-                >
-                  <span
-                    className="text-sm font-medium truncate"
-                    style={{ color: "var(--color-text)" }}
-                  >
-                    {exam.name}
-                  </span>
-                  <span
-                    className="text-sm font-bold px-3 py-1.5 rounded-lg shrink-0 ml-4"
-                    style={badgeStyle}
-                  >
-                    {daysUntil}d left
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <EmptyState
+
+        {/* Upcoming Exams */}
+        <div className="bg-white dark:bg-bg-card rounded-2xl border border-border p-5 sm:p-6">
+          <SectionHeader
+            title="Upcoming Exams"
+            subtitle="Stay prepared"
             icon={Calendar}
-            title="No exams scheduled"
-            description="Add exams to stay on top"
-            action="View Planner"
+            iconBg="bg-rose-500"
+            action="View all"
             actionTo="/planner"
           />
-        )}
+          {upcomingExams.length > 0 ? (
+            <div className="space-y-1">
+              {upcomingExams.slice(0, 5).map((exam) => {
+                const examDate = new Date(exam.examDate);
+                const now = new Date();
+                const diffMs = examDate.getTime() - now.getTime();
+                const daysUntil =
+                  diffMs > 0 ? Math.ceil(diffMs / (1000 * 60 * 60 * 24)) : 0;
+                const urgency =
+                  daysUntil <= 7
+                    ? { chip: "bg-rose-50 text-rose-600", dot: "bg-rose-400" }
+                    : daysUntil <= 30
+                      ? {
+                          chip: "bg-amber-50 text-amber-600",
+                          dot: "bg-amber-400",
+                        }
+                      : {
+                          chip: "bg-emerald-50 text-emerald-600",
+                          dot: "bg-emerald-400",
+                        };
+                return (
+                  <div
+                    key={exam.id}
+                    className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-gray-50 transition-colors"
+                  >
+                    <div
+                      className={`w-1.5 h-1.5 rounded-full shrink-0 ${urgency.dot}`}
+                    />
+                    <span className="text-[12px] font-semibold text-gray-800 flex-1 truncate">
+                      {exam.name}
+                    </span>
+                    <span
+                      className={`text-[10px] font-bold px-2 py-1 rounded-lg shrink-0 tabular-nums ${urgency.chip}`}
+                    >
+                      {daysUntil}d left
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <EmptyState
+              icon={Calendar}
+              title="No exams scheduled"
+              description="Add exams to stay on top of your studies"
+              action="View Planner"
+              actionTo="/planner"
+            />
+          )}
+        </div>
       </div>
     </div>
   );
